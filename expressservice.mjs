@@ -1,5 +1,6 @@
 import express from "express";
-
+import path from "path";
+import { fileURLToPath } from "url";
 const app = express();
 app.use(express.json());
 
@@ -10,6 +11,16 @@ let users = [
 
 app.get("/", (req, res) => res.send("Welcome to Express API!"));
 
+// app.get("/index",(req,res)=>{
+//   res.sendFile("C:/Users/Bhanu Uppala/Desktop/Node/node/index.html")
+// })
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.get("/index", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
 app.get("/users", (req, res) => res.json(users));
 
 app.get("/users/:id", (req, res) => {

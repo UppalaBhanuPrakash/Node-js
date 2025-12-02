@@ -1,12 +1,27 @@
 import express from "express";
-import { getAllUsers,getUserById,createUser,updateUser,deleteUser } from "../userscontroller.mjs";
+import { 
+  getAllUsers,
+  getUserById,
+  createUser,
+  updateUser,
+  deleteUser,
+  uploadAvatar
+} from "../userscontroller.mjs";
 
-const router=express.Router();
+import multer from "multer";
 
-router.get("/",getAllUsers);
-router.get("/:id",getUserById);
-router.post("/",createUser);
-router.put("/:id",updateUser);
-router.delete("/:id",deleteUser);
+const router = express.Router();
+
+const upload = multer({
+  storage: multer.memoryStorage()
+});
+
+router.get("/", getAllUsers);
+router.get("/:id", getUserById);
+router.post("/", createUser);
+router.put("/:id", updateUser);
+router.delete("/:id", deleteUser);
+
+router.post("/:id/upload", upload.single("avatar"), uploadAvatar);
 
 export default router;

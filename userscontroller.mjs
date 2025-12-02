@@ -30,3 +30,13 @@ export const deleteUser=(req,res)=>{
     users=users.find(u=>u.id!=req.params.id)
     res.send("User Deleted")
 }
+export const uploadAvatar = (req, res) => {
+  if (!req.file)
+    return res.status(400).json({ message: "Please upload an image" });
+ 
+  res.json({
+    success: true,
+    message: "File uploaded",
+    file: req.file
+  });
+};

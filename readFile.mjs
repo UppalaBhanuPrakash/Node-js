@@ -1,13 +1,33 @@
+// import fs from "fs";
+// import path from "path";
+// import { fileURLToPath } from "url";
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+// const filePath = path.join(__dirname, "message.txt");
+
+// console.log(filePath);
 import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const stream = fs.createReadStream("message.txt", {
+  encoding: "utf-8",
+  highWaterMark: 5 //in Bytes
+});
 
-const filePath = path.join(__dirname, "message.txt");
+stream.on("data", chunk => {
+  console.log("Chunk:", chunk);
+});
+// import fs from "fs";
 
-console.log(filePath);
+// const readStream = fs.createReadStream("message.txt");
+// const writeStream = fs.createWriteStream("copy.txt");
+
+// readStream.pipe(writeStream);
+
+// readStream.on("end", () => {
+//   console.log("File copied successfully");
+// });
 
 // const path = require("path");
  
@@ -50,15 +70,15 @@ console.log(filePath);
 //   if (err) console.log(err);
 //   else console.log("Folder removed!");
 // });
-const fs = require('fs').promises;
+// const fs = require('fs').promises;
 
-async function readFileExample() {
-  try {
-    const data = await fs.readFile('message.txt', 'utf8');
-    console.log('File content:', data);
-  } catch (err) {
-    console.error('Error reading file:', err);
-  }
-}
+// async function readFileExample() {
+//   try {
+//     const data = await fs.readFile('message.txt', 'utf8');
+//     console.log('File content:', data);
+//   } catch (err) {
+//     console.error('Error reading file:', err);
+//   }
+// }
 
-readFileExample();
+// readFileExample();

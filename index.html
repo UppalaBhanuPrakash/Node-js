@@ -1,0 +1,53 @@
+<h1>Welcome To Express</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SSE Live Streaming Demo</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    #log { 
+      background: #000; 
+      color: #0f0; 
+      padding: 15px; 
+      border-radius: 5px; 
+      height: 200px; 
+      overflow-y: auto; 
+      white-space: pre-line;
+    }
+    #final {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f4f4f4;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Live Processing Updates</h2>
+<div id="log">Connecting...</div>
+
+<h2>Final Result</h2>
+<pre id="final"></pre>
+
+<script>
+  const logBox = document.getElementById("log");
+  const finalBox = document.getElementById("final");
+
+  const stream = new EventSource("/user-with-posts/1");
+
+  // Temporary status updates
+  stream.addEventListener("status", (e) => {
+    logBox.textContent += "\n" + e.data;
+  });
+
+  // Final result received
+  stream.addEventListener("final", (e) => {
+    logBox.textContent = "Done ";
+    finalBox.textContent = JSON.stringify(JSON.parse(e.data), null, 2);
+    stream.close();
+  });
+</script>
+
+</body>
+</html>
