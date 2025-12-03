@@ -10,8 +10,6 @@ app.get("/", async (req, res) => {
   try {
     const response = await axios.get(BASE_URL);
     res.json({
-      message: "Root API working!",
-      usersCount: response.data.length,
       users: response.data,
     });
   } catch (err) {
@@ -38,7 +36,6 @@ app.get("/combined-data", async (req, res) => {
     res.status(500).send("Error in parallel APIs");
   }
 });
-
 app.listen(3000, () =>
   console.log("Server running at http://localhost:3000")
 );
