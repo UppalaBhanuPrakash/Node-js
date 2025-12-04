@@ -5,7 +5,8 @@ import {
   createUser,
   updateUser,
   deleteUser,
-  uploadAvatar
+  uploadAvatar,
+  validateUserName
 } from "../userscontroller.mjs";
 
 import multer from "multer";
@@ -18,8 +19,8 @@ const upload = multer({
 
 router.get("/", getAllUsers);
 router.get("/:id", getUserById);
-router.post("/", createUser);
-router.put("/:id", updateUser);
+router.post("/",validateUserName,createUser);
+router.put("/:id",validateUserName, updateUser);
 router.delete("/:id", deleteUser);
 
 router.post("/:id/upload", upload.single("avatar"), uploadAvatar);

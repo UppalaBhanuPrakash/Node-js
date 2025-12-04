@@ -1,4 +1,13 @@
 import users from "./user.mjs"
+export const validateUserName = (req, res, next) => {
+  const { name } = req.body;
+
+  if (!name || name.trim() === "") {
+    return res.status(400).json({ message: "Name is required" });
+  }
+
+  next();
+};
 
 export const getAllUsers=(req,res)=>{
     res.json(users);
